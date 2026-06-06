@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio & Case Studies — Sandeep Kumawat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .page-hero { background: var(--navy); padding: 140px 0 72px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(37,99,235,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.08) 1px, transparent 1px); background-size: 40px 40px; }
+    .page-hero .container { position: relative; z-index: 1; }
+    .page-hero-tag { display: inline-block; font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-light); background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.3); padding: 4px 14px; border-radius: 100px; margin-bottom: 16px; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white); margin-bottom: 16px; }
+    .page-hero p { font-size: 1.05rem; color: var(--gray-400); max-width: 560px; line-height: 1.7; }
+
+    /* Case Studies */
+    .case-studies { display: flex; flex-direction: column; gap: 48px; }
+    .case-study {
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--white);
+      transition: box-shadow 0.25s;
+    }
+    .case-study:hover { box-shadow: var(--shadow-lg); }
+    .cs-header {
+      padding: 28px 32px;
+      background: var(--navy);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .cs-category { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 6px; }
+    .cs-title { font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .cs-desc { font-size: 0.85rem; color: var(--gray-400); max-width: 480px; }
+    .cs-badges { display: flex; gap: 8px; flex-wrap: wrap; flex-shrink: 0; }
+    .cs-badge { font-size: 0.7rem; font-family: var(--mono); padding: 4px 12px; border-radius: 100px; border: 1px solid; }
+    .cs-badge.green { color: var(--green); border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.1); }
+    .cs-badge.blue { color: var(--blue-light); border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.1); }
+    .cs-badge.orange { color: var(--orange); border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.1); }
+
+    .cs-metrics {
+      display: flex;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .cs-metric {
+      flex: 1;
+      padding: 20px 24px;
+      border-right: 1px solid var(--gray-200);
+      text-align: center;
+    }
+    .cs-metric:last-child { border-right: none; }
+    .cm-val { font-size: 1.6rem; font-weight: 800; font-family: var(--mono); color: var(--navy); line-height: 1; }
+    .cm-val.green { color: var(--green); }
+    .cm-val.blue { color: var(--blue); }
+    .cm-val.orange { color: var(--orange); }
+    .cm-lbl { font-size: 0.7rem; font-family: var(--mono); color: var(--gray-400); margin-top: 4px; }
+
+    .cs-body { padding: 28px 32px; }
+    .cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .cs-col h4 { font-size: 0.75rem; font-family: var(--mono); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 12px; }
+    .cs-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .cs-list li { font-size: 0.875rem; color: var(--gray-600); display: flex; gap: 8px; align-items: flex-start; }
+    .cs-list li .ic { flex-shrink: 0; margin-top: 2px; }
+    .ic-bad { color: var(--red); }
+    .ic-good { color: var(--green); }
+
+    /* Audit Report Preview */
+    .audit-preview {
+      margin-top: 24px;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .ap-header { background: var(--navy); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .ap-title { font-family: var(--mono); font-size: 0.8rem; color: var(--white); font-weight: 600; }
+    .ap-badge { font-family: var(--mono); font-size: 0.65rem; color: var(--green); background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); padding: 3px 10px; border-radius: 100px; }
+    .ap-body { padding: 16px 20px; background: var(--gray-50); }
+    .ap-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--gray-200); font-size: 0.8rem; }
+    .ap-row:last-child { border-bottom: none; }
+    .ap-key { color: var(--gray-600); font-family: var(--mono); }
+    .ap-val { font-weight: 700; color: var(--navy); font-family: var(--mono); }
+    .ap-val.g { color: var(--green); }
+    .ap-val.r { color: var(--red); }
+    .ap-val.o { color: var(--orange); }
+    .ap-val.b { color: var(--blue); }
+
+    /* Stats summary */
+    .portfolio-stats { background: var(--navy); }
+    .pstats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--navy-light); border: 1px solid var(--navy-light); border-radius: var(--radius-lg); overflow: hidden; }
+    .pstat { padding: 40px 32px; background: var(--navy-mid); text-align: center; }
+    .pstat-num { font-size: 2.5rem; font-weight: 800; font-family: var(--mono); color: var(--white); line-height: 1; }
+    .pstat-label { font-size: 0.8rem; color: var(--gray-400); margin-top: 6px; font-family: var(--mono); }
+
+    @media (max-width: 768px) {
+      .cs-grid { grid-template-columns: 1fr; }
+      .cs-header { flex-direction: column; }
+      .cs-metrics { flex-wrap: wrap; }
+      .cs-metric { min-width: 50%; border-bottom: 1px solid var(--gray-200); }
+      .pstats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><span class="logo-mark">SK</span><div class="logo-text"><span class="logo-name">Sandeep Kumawat</span><span class="logo-role">Data & CRM Specialist</span></div></a>
+    <ul class="nav-links">
+      <li><a href="../index.html" class="nav-link">Home</a></li>
+      <li><a href="services.html" class="nav-link">Services</a></li>
+      <li><a href="portfolio.html" class="nav-link active">Portfolio</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-ghost">Fiverr Profile</a>
+      <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="../index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
+      <li><a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank">Fiverr Profile</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="page-hero-tag">Portfolio</span>
+    <h1>Case Studies & Delivered Projects</h1>
+    <p>Real client deliverables with documented results. Every project includes audit trails, before/after comparisons, and completeness reports.</p>
+  </div>
+</section>
+
+<section class="section portfolio-stats">
+  <div class="container">
+    <div class="pstats-grid">
+      <div class="pstat"><div class="pstat-num">5+</div><div class="pstat-label">Projects Delivered</div></div>
+      <div class="pstat"><div class="pstat-num">50K+</div><div class="pstat-label">Records Processed</div></div>
+      <div class="pstat"><div class="pstat-num">98%</div><div class="pstat-label">Accuracy Rate</div></div>
+      <div class="pstat"><div class="pstat-num">96%+</div><div class="pstat-label">Data Accuracy Target</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Case Studies</span>
+      <h2 class="section-title">Selected Client Projects</h2>
+      <p class="section-sub">Full documentation of scope, methodology, results, and audit outputs for representative engagements.</p>
+    </div>
+    <div class="case-studies">
+
+      <!-- Case Study 1 -->
+      <div class="case-study">
+        <div class="cs-header">
+          <div>
+            <div class="cs-category">CRM Cleanup · Lead Database</div>
+            <div class="cs-title">Sales Agency CRM — 1,200 Contact Deduplication & Normalization</div>
+            <p class="cs-desc">Full cleanup of a HubSpot export with mixed-format records, inconsistent job titles, and duplicate leads across 4 lead sources.</p>
+          </div>
+          <div class="cs-badges">
+            <span class="cs-badge green">Completed</span>
+            <span class="cs-badge blue">CRM Cleanup</span>
+            <span class="cs-badge orange">Email Validation</span>
+          </div>
+        </div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cm-val">1,247</div><div class="cm-lbl">Rows Input</div></div>
+          <div class="cs-metric"><div class="cm-val green">1,089</div><div class="cm-lbl">Clean Records Out</div></div>
+          <div class="cs-metric"><div class="cm-val blue">158</div><div class="cm-lbl">Dupes Removed</div></div>
+          <div class="cs-metric"><div class="cm-val orange">312</div><div class="cm-lbl">Fields Corrected</div></div>
+          <div class="cs-metric"><div class="cm-val">96.2%</div><div class="cm-lbl">Final Completeness</div></div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-grid">
+            <div class="cs-col">
+              <h4>Issues Found (Before)</h4>
+              <ul class="cs-list">
+                <li><span class="ic ic-bad">✗</span>158 duplicate contacts across Linkedin, Website, and Cold Email sources</li>
+                <li><span class="ic ic-bad">✗</span>Mixed-case names (john SMITH, SOPHIA brown, chris Joh…)</li>
+                <li><span class="ic ic-bad">✗</span>Inconsistent status values (new / NEW / New / contacted)</li>
+                <li><span class="ic ic-bad">✗</span>Deal values with currency mixed in text (10000 USD, $7,500)</li>
+                <li><span class="ic ic-bad">✗</span>37 missing email addresses marked as blank</li>
+                <li><span class="ic ic-bad">✗</span>Phone numbers in 6 different formats</li>
+              </ul>
+            </div>
+            <div class="cs-col">
+              <h4>Outcomes Delivered (After)</h4>
+              <ul class="cs-list">
+                <li><span class="ic ic-good">✓</span>All duplicate records removed with merge log preserved</li>
+                <li><span class="ic ic-good">✓</span>Proper case applied: Full Name, Company, Job Title</li>
+                <li><span class="ic ic-good">✓</span>Status normalized to: New / Qualified / Won / Lost</li>
+                <li><span class="ic ic-good">✓</span>Deal values unified to numeric format, currency in separate column</li>
+                <li><span class="ic ic-good">✓</span>Missing emails flagged as N/A with row notes</li>
+                <li><span class="ic ic-good">✓</span>Phone numbers standardized to E.164 format (+1XXXXXXXXXX)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="audit-preview">
+            <div class="ap-header">
+              <div class="ap-title">⚡ Cleaning Audit Report — HubSpot_Export_Q2.xlsx</div>
+              <div class="ap-badge">Audit Complete</div>
+            </div>
+            <div class="ap-body">
+              <div class="ap-row"><span class="ap-key">Rows Before Cleaning</span><span class="ap-val">1,247</span></div>
+              <div class="ap-row"><span class="ap-key">Rows After Cleaning</span><span class="ap-val g">1,089</span></div>
+              <div class="ap-row"><span class="ap-key">Duplicate Rows Removed</span><span class="ap-val r">158</span></div>
+              <div class="ap-row"><span class="ap-key">Total Cells Changed</span><span class="ap-val o">312</span></div>
+              <div class="ap-row"><span class="ap-key">Valid Emails</span><span class="ap-val g">1,052</span></div>
+              <div class="ap-row"><span class="ap-key">Auto-Corrected Emails</span><span class="ap-val b">24</span></div>
+              <div class="ap-row"><span class="ap-key">Overall Data Completeness</span><span class="ap-val g">96.2%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 2 -->
+      <div class="case-study">
+        <div class="cs-header">
+          <div>
+            <div class="cs-category">Email Validation · Outreach Prep</div>
+            <div class="cs-title">SaaS Startup — 5,000 Lead Email List Validation Before Campaign Launch</div>
+            <p class="cs-desc">Pre-campaign email validation and list hygiene for a B2B SaaS outreach team. Goal: reduce bounce rate below 2% for cold email compliance.</p>
+          </div>
+          <div class="cs-badges">
+            <span class="cs-badge green">Completed</span>
+            <span class="cs-badge blue">Email Validation</span>
+          </div>
+        </div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cm-val">5,000</div><div class="cm-lbl">Emails Input</div></div>
+          <div class="cs-metric"><div class="cm-val green">4,312</div><div class="cm-lbl">Valid Emails</div></div>
+          <div class="cs-metric"><div class="cm-val blue">410</div><div class="cm-lbl">Auto-Corrected</div></div>
+          <div class="cs-metric"><div class="cm-val orange">178</div><div class="cm-lbl">Removed (Invalid)</div></div>
+          <div class="cs-metric"><div class="cm-val">1.4%</div><div class="cm-lbl">Post-Campaign Bounce</div></div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-grid">
+            <div class="cs-col">
+              <h4>Issues Found (Before)</h4>
+              <ul class="cs-list">
+                <li><span class="ic ic-bad">✗</span>178 completely invalid email addresses</li>
+                <li><span class="ic ic-bad">✗</span>62 disposable email addresses (mailinator, guerrilla, etc.)</li>
+                <li><span class="ic ic-bad">✗</span>410 typo errors (gmial, outook, yahooo, etc.)</li>
+                <li><span class="ic ic-bad">✗</span>38 role-based addresses (info@, support@, admin@)</li>
+                <li><span class="ic ic-bad">✗</span>Estimated 8.7% pre-campaign bounce risk</li>
+              </ul>
+            </div>
+            <div class="cs-col">
+              <h4>Outcomes Delivered (After)</h4>
+              <ul class="cs-list">
+                <li><span class="ic ic-good">✓</span>4,312 verified-valid emails ready for outreach</li>
+                <li><span class="ic ic-good">✓</span>410 emails auto-corrected and validated</li>
+                <li><span class="ic ic-good">✓</span>All disposable and role-based emails flagged separately</li>
+                <li><span class="ic ic-good">✓</span>Post-campaign actual bounce rate: 1.4%</li>
+                <li><span class="ic ic-good">✓</span>Full email classification report with status per row</li>
+              </ul>
+            </div>
+          </div>
+          <div class="audit-preview">
+            <div class="ap-header">
+              <div class="ap-title">📧 Email Validation Report — Outreach_List_May2026.csv</div>
+              <div class="ap-badge">Validation Complete</div>
+            </div>
+            <div class="ap-body">
+              <div class="ap-row"><span class="ap-key">Total Emails Scanned</span><span class="ap-val">5,000</span></div>
+              <div class="ap-row"><span class="ap-key">Valid Emails</span><span class="ap-val g">4,312</span></div>
+              <div class="ap-row"><span class="ap-key">Auto-Corrected</span><span class="ap-val b">410</span></div>
+              <div class="ap-row"><span class="ap-key">Invalid (Removed)</span><span class="ap-val r">178</span></div>
+              <div class="ap-row"><span class="ap-key">Disposable Addresses</span><span class="ap-val o">62</span></div>
+              <div class="ap-row"><span class="ap-key">Role-Based Addresses</span><span class="ap-val o">38</span></div>
+              <div class="ap-row"><span class="ap-key">Deliverability Score</span><span class="ap-val g">98.6%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 3 -->
+      <div class="case-study">
+        <div class="cs-header">
+          <div>
+            <div class="cs-category">Data Quality Audit · Completeness Reporting</div>
+            <div class="cs-title">Operations Agency — Full Dataset Audit with Completeness Report (27 Columns)</div>
+            <p class="cs-desc">Complete data quality audit of an internal operations dataset. Generated field-level completeness scoring, anomaly flagging, and actionable improvement plan.</p>
+          </div>
+          <div class="cs-badges">
+            <span class="cs-badge green">Completed</span>
+            <span class="cs-badge blue">Data Audit</span>
+            <span class="cs-badge orange">Report</span>
+          </div>
+        </div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cm-val">31</div><div class="cm-lbl">Rows Input</div></div>
+          <div class="cs-metric"><div class="cm-val green">27</div><div class="cm-lbl">Clean Rows</div></div>
+          <div class="cs-metric"><div class="cm-val orange">98</div><div class="cm-lbl">Cells Changed</div></div>
+          <div class="cs-metric"><div class="cm-val blue">9</div><div class="cm-lbl">Healthy Columns</div></div>
+          <div class="cs-metric"><div class="cm-val">96.3%</div><div class="cm-lbl">Completeness Score</div></div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-grid">
+            <div class="cs-col">
+              <h4>Audit Findings</h4>
+              <ul class="cs-list">
+                <li><span class="ic ic-bad">✗</span>4 duplicate rows identified and removed</li>
+                <li><span class="ic ic-bad">✗</span>5 missing values detected across key fields</li>
+                <li><span class="ic ic-bad">✗</span>Email Address column at 92.6% fill rate (2 missing)</li>
+                <li><span class="ic ic-bad">✗</span>Age column at 92.6% fill rate (2 missing)</li>
+                <li><span class="ic ic-bad">✗</span>1 invalid email, 1 disposable, 1 role-based flagged</li>
+              </ul>
+            </div>
+            <div class="cs-col">
+              <h4>Completeness Report Summary</h4>
+              <ul class="cs-list">
+                <li><span class="ic ic-good">✓</span>Country: 100% — Healthy</li>
+                <li><span class="ic ic-good">✓</span>Gender: 100% — Healthy</li>
+                <li><span class="ic ic-good">✓</span>Full Name: 96.3% — Healthy</li>
+                <li><span class="ic ic-good">✓</span>Phone No: 96.3% — Healthy</li>
+                <li><span class="ic ic-good">✓</span>Email: 92.6% — Healthy (2 missing)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-bg"></div>
+      <div class="cta-content">
+        <h2>Want Results Like These?</h2>
+        <p>Every project includes full audit documentation and before/after deliverables.</p>
+        <div class="cta-actions">
+          <a href="contact.html" class="btn btn-white btn-lg">Start a Project</a>
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-outline-white btn-lg">View Fiverr Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span class="logo-mark" style="background:var(--blue)">SK</span><div class="logo-text"><span class="logo-name" style="color:var(--white)">Sandeep Kumawat</span><span class="logo-role">Data & CRM Specialist</span></div></div>
+        <p>Professional data cleaning and CRM optimization. Trusted by agencies, startups, and outreach teams worldwide.</p>
+        <div class="footer-social">
+          <a href="mailto:overlimits.data@gmail.com" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" aria-label="Fiverr"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.25 16.25v-7.5H9.375A3.125 3.125 0 0 0 6.25 11.875V16.25H4.375V9.375A5 5 0 0 1 9.375 4.375H16.25V2.5l3.75 3.75-3.75 3.75V6.25H9.375A3.125 3.125 0 0 0 6.25 9.375v.937a5 5 0 0 1 3.125-1.062H18.125V16.25h1.25V18.125h-5v1.25h-1.875v-1.25H8.125V18.125H6.25V16.25H4.375v-1.875h13.75v1.875H16.25z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-links"><h4>Services</h4><ul><li><a href="services.html">Excel Data Cleaning</a></li><li><a href="services.html">CRM Data Cleanup</a></li><li><a href="services.html">Email Validation</a></li><li><a href="services.html">Lead Optimization</a></li></ul></div>
+      <div class="footer-links"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="contact.html">Contact</a></li><li><a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank">Fiverr Profile</a></li></ul></div>
+      <div class="footer-contact"><h4>Contact</h4><a href="mailto:overlimits.data@gmail.com" class="footer-email">overlimits.data@gmail.com</a><a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-primary" style="margin-top:1rem;display:inline-block">Hire on Fiverr</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Sandeep Kumawat. All rights reserved.</span><span>Data Cleaning & CRM Optimization Specialist</span></div>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>

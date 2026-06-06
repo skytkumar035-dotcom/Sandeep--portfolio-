@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Sandeep Kumawat | Data & CRM Specialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .page-hero { background: var(--navy); padding: 140px 0 72px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(37,99,235,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.08) 1px, transparent 1px); background-size: 40px 40px; }
+    .page-hero .container { position: relative; z-index: 1; }
+    .page-hero-tag { display: inline-block; font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-light); background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.3); padding: 4px 14px; border-radius: 100px; margin-bottom: 16px; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white); margin-bottom: 16px; }
+    .page-hero p { font-size: 1.05rem; color: var(--gray-400); max-width: 560px; line-height: 1.7; }
+
+    .about-intro { display: grid; grid-template-columns: 1fr 1.6fr; gap: 64px; align-items: start; }
+    .about-photo-wrap {
+      position: relative;
+    }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #1e3a5f, var(--navy));
+      overflow: hidden;
+      position: relative;
+      border: 3px solid var(--gray-200);
+      box-shadow: var(--shadow-lg);
+    }
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .about-photo-badge {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .apb-name { font-size: 0.9rem; font-weight: 700; color: var(--white); }
+    .apb-role { font-size: 0.75rem; color: var(--gray-400); margin-top: 2px; }
+    .apb-status { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.7rem; color: var(--green); }
+    .apb-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s ease infinite; }
+
+    .about-content h2 { font-size: 1.5rem; font-weight: 800; color: var(--navy); margin-bottom: 16px; }
+    .about-content p { font-size: 0.95rem; color: var(--gray-600); line-height: 1.8; margin-bottom: 16px; }
+    .about-content strong { color: var(--navy); }
+
+    .about-specialties { margin: 28px 0; }
+    .about-specialties h3 { font-size: 0.8rem; font-family: var(--mono); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 12px; }
+    .specialty-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .spec-tag { font-size: 0.8rem; font-weight: 500; padding: 6px 14px; border-radius: 8px; background: var(--blue-pale); color: var(--blue); border: 1px solid rgba(37,99,235,0.15); }
+
+    .about-numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+    .an-item { padding: 20px; border: 1px solid var(--gray-200); border-radius: var(--radius); text-align: center; }
+    .an-num { font-size: 1.8rem; font-weight: 800; font-family: var(--mono); color: var(--navy); }
+    .an-lbl { font-size: 0.75rem; color: var(--gray-400); font-family: var(--mono); margin-top: 4px; }
+
+    /* Differentiators */
+    .diff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .diff-card { padding: 28px; border: 1px solid var(--gray-200); border-radius: var(--radius); background: var(--white); }
+    .diff-icon { width: 44px; height: 44px; background: var(--blue-pale); border-radius: 10px; display: grid; place-items: center; color: var(--blue); margin-bottom: 16px; }
+    .diff-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .diff-card p { font-size: 0.875rem; color: var(--gray-600); line-height: 1.6; }
+
+    /* Toolset */
+    .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .tool-card { padding: 20px; border: 1px solid var(--gray-200); border-radius: var(--radius); text-align: center; background: var(--white); transition: all 0.2s; }
+    .tool-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+    .tool-icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .tool-name { font-size: 0.8rem; font-weight: 600; color: var(--navy); }
+    .tool-cat { font-size: 0.65rem; font-family: var(--mono); color: var(--gray-400); margin-top: 2px; }
+
+    @media (max-width: 900px) {
+      .about-intro { grid-template-columns: 1fr; }
+      .about-photo { max-width: 320px; }
+      .diff-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .about-numbers { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><span class="logo-mark">SK</span><div class="logo-text"><span class="logo-name">Sandeep Kumawat</span><span class="logo-role">Data & CRM Specialist</span></div></a>
+    <ul class="nav-links">
+      <li><a href="../index.html" class="nav-link">Home</a></li>
+      <li><a href="services.html" class="nav-link">Services</a></li>
+      <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+      <li><a href="about.html" class="nav-link active">About</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-ghost">Fiverr Profile</a>
+      <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="../index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
+      <li><a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank">Fiverr Profile</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="page-hero-tag">About</span>
+    <h1>Business Data Cleaning & CRM Optimization Specialist</h1>
+    <p>Building systematic, auditable data workflows for agencies, outreach teams, and operations-driven businesses.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="about-intro">
+      <div class="about-photo-wrap">
+        <div class="about-photo">
+          <img src="../assets/sandeep.png" alt="Sandeep Kumawat — Data & CRM Specialist"/>
+        </div>
+        <div class="about-photo-badge">
+          <div>
+            <div class="apb-name">Sandeep Kumawat</div>
+            <div class="apb-role">Data & CRM Specialist</div>
+          </div>
+          <div class="apb-status"><div class="apb-dot"></div>Available</div>
+        </div>
+      </div>
+      <div class="about-content">
+        <h2>Professional Background & Expertise</h2>
+        <p>I am a data operations specialist focused on <strong>business data cleaning, CRM optimization, and lead database management</strong>. My work primarily serves sales agencies, SaaS companies, outreach teams, and operations managers who need reliable, structured data to drive their business processes.</p>
+        <p>What sets this practice apart is a <strong>systematic, auditable approach</strong> to every project. Rather than delivering a cleaned file without documentation, every engagement includes a full data quality audit report — tracking rows in, rows out, cells changed, email validation results, and completeness scoring by column.</p>
+        <p>This methodology was built after processing thousands of messy CRM exports, lead databases, and outreach lists. The result is a repeatable 5-step workflow that consistently delivers <strong>96%+ data accuracy</strong> with zero guesswork on what changed and why.</p>
+        <p>I operate as a solo specialist with deep focus on data quality, not a generalist agency. This means faster turnaround, clearer communication, and a single point of accountability for every project.</p>
+
+        <div class="about-specialties">
+          <h3>Core Specialties</h3>
+          <div class="specialty-tags">
+            <span class="spec-tag">Excel / CSV Cleaning</span>
+            <span class="spec-tag">CRM Data Normalization</span>
+            <span class="spec-tag">Email Validation</span>
+            <span class="spec-tag">Duplicate Detection</span>
+            <span class="spec-tag">Lead Database Optimization</span>
+            <span class="spec-tag">Data Quality Auditing</span>
+            <span class="spec-tag">HubSpot / Salesforce Exports</span>
+            <span class="spec-tag">Outreach List Hygiene</span>
+            <span class="spec-tag">Web Research</span>
+          </div>
+        </div>
+
+        <div class="about-numbers">
+          <div class="an-item"><div class="an-num">150+</div><div class="an-lbl">Projects</div></div>
+          <div class="an-item"><div class="an-num">2M+</div><div class="an-lbl">Records Cleaned</div></div>
+          <div class="an-item"><div class="an-num">98%</div><div class="an-lbl">Accuracy Rate</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Differentiators</span>
+      <h2 class="section-title">What Makes This Different</h2>
+      <p class="section-sub">Not a generic data entry service. A specialized data operations practice with documented methodology.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <h3>Full Audit Reports on Every Project</h3>
+        <p>Custom-built validation workflows generate professional audit reports documenting every change, validation result, and data quality metric. You know exactly what was done and why.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3>Systematic, Repeatable Methodology</h3>
+        <p>A 5-step workflow (Analyze → Detect → Validate → Report → Deliver) applied consistently to every project. The same rigor for a 100-row file as for a 50,000-row database.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <h3>Business-Context Awareness</h3>
+        <p>Understanding how data will be used downstream — in CRM import, outreach campaigns, or analytics — means cleaning decisions are made with operational context, not just rule-based formatting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Toolset</span>
+      <h2 class="section-title">Tools & Platforms</h2>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card"><div class="tool-icon">📊</div><div class="tool-name">Microsoft Excel</div><div class="tool-cat">Primary Workspace</div></div>
+      <div class="tool-card"><div class="tool-icon">📋</div><div class="tool-name">Google Sheets</div><div class="tool-cat">Collaboration</div></div>
+      <div class="tool-card"><div class="tool-icon">🔄</div><div class="tool-name">HubSpot</div><div class="tool-cat">CRM Export/Import</div></div>
+      <div class="tool-card"><div class="tool-icon">⚡</div><div class="tool-name">Salesforce</div><div class="tool-cat">CRM Export/Import</div></div>
+      <div class="tool-card"><div class="tool-icon">📧</div><div class="tool-name">Email Validators</div><div class="tool-cat">NeverBounce / ZeroBounce</div></div>
+      <div class="tool-card"><div class="tool-icon">🗄️</div><div class="tool-name">Pipedrive / Zoho</div><div class="tool-cat">CRM Systems</div></div>
+      <div class="tool-card"><div class="tool-icon">📁</div><div class="tool-name">CSV / JSON</div><div class="tool-cat">File Formats</div></div>
+      <div class="tool-card"><div class="tool-icon">🔍</div><div class="tool-name">Web Research</div><div class="tool-cat">LinkedIn / Apollo / Hunter</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-bg"></div>
+      <div class="cta-content">
+        <h2>Work With a Specialist, Not a Generalist</h2>
+        <p>Send your dataset and I'll provide a free initial assessment within 24 hours.</p>
+        <div class="cta-actions">
+          <a href="contact.html" class="btn btn-white btn-lg">Contact Me</a>
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-outline-white btn-lg">Hire on Fiverr</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span class="logo-mark" style="background:var(--blue)">SK</span><div class="logo-text"><span class="logo-name" style="color:var(--white)">Sandeep Kumawat</span><span class="logo-role">Data & CRM Specialist</span></div></div>
+        <p>Professional data cleaning and CRM optimization. Trusted by agencies, startups, and outreach teams worldwide.</p>
+        <div class="footer-social">
+          <a href="mailto:overlimits.data@gmail.com" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" aria-label="Fiverr"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.25 16.25v-7.5H9.375A3.125 3.125 0 0 0 6.25 11.875V16.25H4.375V9.375A5 5 0 0 1 9.375 4.375H16.25V2.5l3.75 3.75-3.75 3.75V6.25H9.375A3.125 3.125 0 0 0 6.25 9.375v.937a5 5 0 0 1 3.125-1.062H18.125V16.25h1.25V18.125h-5v1.25h-1.875v-1.25H8.125V18.125H6.25V16.25H4.375v-1.875h13.75v1.875H16.25z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-links"><h4>Services</h4><ul><li><a href="services.html">Excel Data Cleaning</a></li><li><a href="services.html">CRM Data Cleanup</a></li><li><a href="services.html">Email Validation</a></li><li><a href="services.html">Lead Optimization</a></li></ul></div>
+      <div class="footer-links"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="contact.html">Contact</a></li><li><a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank">Fiverr Profile</a></li></ul></div>
+      <div class="footer-contact"><h4>Contact</h4><a href="mailto:overlimits.data@gmail.com" class="footer-email">overlimits.data@gmail.com</a><a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-primary" style="margin-top:1rem;display:inline-block">Hire on Fiverr</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Sandeep Kumawat. All rights reserved.</span><span>Data Cleaning & CRM Optimization Specialist</span></div>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>

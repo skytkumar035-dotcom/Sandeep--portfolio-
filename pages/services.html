@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Services — Sandeep Kumawat | Data Cleaning & CRM Optimization</title>
+  <meta name="description" content="Professional data cleaning, CRM optimization, email validation, lead database management, and data auditing services."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .page-hero {
+      background: var(--navy);
+      padding: 140px 0 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(37,99,235,0.08) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(37,99,235,0.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .page-hero .container { position: relative; z-index: 1; }
+    .page-hero-tag { display: inline-block; font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-light); background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.3); padding: 4px 14px; border-radius: 100px; margin-bottom: 16px; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white); margin-bottom: 16px; }
+    .page-hero p { font-size: 1.05rem; color: var(--gray-400); max-width: 560px; line-height: 1.7; }
+
+    .services-full { display: flex; flex-direction: column; gap: 20px; }
+    .sf-card {
+      display: grid;
+      grid-template-columns: 280px 1fr auto;
+      gap: 32px;
+      align-items: center;
+      padding: 32px;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      background: var(--white);
+      transition: all 0.25s;
+    }
+    .sf-card:hover { border-color: var(--blue); box-shadow: var(--shadow-lg); transform: translateX(4px); }
+    .sf-left { display: flex; align-items: center; gap: 16px; }
+    .sf-icon { width: 52px; height: 52px; background: var(--blue-pale); border-radius: 14px; display: grid; place-items: center; color: var(--blue); flex-shrink: 0; }
+    .sf-name { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .sf-price { font-family: var(--mono); font-size: 0.75rem; color: var(--blue); background: var(--blue-pale); padding: 3px 10px; border-radius: 100px; display: inline-block; }
+    .sf-desc { font-size: 0.875rem; color: var(--gray-600); line-height: 1.7; }
+    .sf-features { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+    .sf-features li { font-size: 0.8rem; color: var(--gray-600); display: flex; align-items: center; gap: 6px; }
+    .sf-features li::before { content: '→'; color: var(--blue); font-size: 0.75rem; }
+    .sf-action { flex-shrink: 0; }
+
+    .pricing-section { background: var(--gray-50); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .pricing-card {
+      padding: 36px 28px;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      background: var(--white);
+      position: relative;
+      transition: all 0.25s;
+    }
+    .pricing-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .pricing-card.featured { border-color: var(--blue); background: var(--navy); color: var(--white); }
+    .pricing-popular {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      font-family: var(--mono);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--blue);
+      color: var(--white);
+      padding: 4px 16px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .pricing-tier { font-size: 0.75rem; font-family: var(--mono); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+    .pricing-card.featured .pricing-tier { color: var(--blue-light); }
+    .pricing-price { font-size: 2.5rem; font-weight: 800; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+    .pricing-card.featured .pricing-price { color: var(--white); }
+    .pricing-price span { font-size: 1rem; font-weight: 500; color: var(--gray-400); }
+    .pricing-desc { font-size: 0.8rem; color: var(--gray-600); margin-bottom: 24px; }
+    .pricing-card.featured .pricing-desc { color: var(--gray-400); }
+    .pricing-divider { height: 1px; background: var(--gray-200); margin-bottom: 20px; }
+    .pricing-card.featured .pricing-divider { background: var(--navy-light); }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .pricing-features li { font-size: 0.85rem; color: var(--gray-600); display: flex; align-items: flex-start; gap: 8px; }
+    .pricing-card.featured .pricing-features li { color: var(--gray-400); }
+    .pricing-features li .check { color: var(--green); font-weight: 700; }
+
+    .faq-section {}
+    .faq-grid { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; }
+    .faq-q {
+      padding: 18px 24px;
+      font-weight: 600;
+      font-size: 0.925rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--white);
+      transition: background 0.15s;
+    }
+    .faq-q:hover { background: var(--gray-50); }
+    .faq-q.open { background: var(--blue-pale); color: var(--blue); }
+    .faq-icon { font-size: 1.2rem; transition: transform 0.2s; flex-shrink: 0; margin-left: 12px; }
+    .faq-q.open .faq-icon { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 24px 18px; font-size: 0.875rem; color: var(--gray-600); line-height: 1.7; }
+    .faq-a.open { display: block; }
+
+    @media (max-width: 900px) {
+      .sf-card { grid-template-columns: 1fr; gap: 16px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .sf-card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <span class="logo-mark">SK</span>
+      <div class="logo-text"><span class="logo-name">Sandeep Kumawat</span><span class="logo-role">Data & CRM Specialist</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html" class="nav-link">Home</a></li>
+      <li><a href="services.html" class="nav-link active">Services</a></li>
+      <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-ghost">Fiverr Profile</a>
+      <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank">Fiverr Profile</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="page-hero-tag">Services</span>
+    <h1>Data Management Services Built for Business Operations</h1>
+    <p>From raw, messy exports to audit-ready, CRM-optimized datasets — every service is delivered with full documentation and audit reporting.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Full Service List</span>
+      <h2 class="section-title">What's Available</h2>
+      <p class="section-sub">Every service includes documentation, before/after comparison, and a data quality summary report.</p>
+    </div>
+    <div class="services-full">
+
+      <div class="sf-card">
+        <div class="sf-left">
+          <div class="sf-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div>
+            <div class="sf-name">Excel Data Cleaning</div>
+            <span class="sf-price">Most Popular</span>
+          </div>
+        </div>
+        <div>
+          <p class="sf-desc">Complete cleanup of Excel/CSV files: remove duplicates, standardize formats, fill missing values, fix phone numbers, normalize text casing, and restructure layouts for CRM import or reporting.</p>
+          <ul class="sf-features">
+            <li>Duplicate detection and removal with full audit log</li>
+            <li>Column standardization (names, phone, dates, currencies)</li>
+            <li>Missing value handling and smart fill logic</li>
+            <li>Delivered in .xlsx with a separate cleaning report sheet</li>
+          </ul>
+        </div>
+        <div class="sf-action">
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-primary">Order Now</a>
+        </div>
+      </div>
+
+      <div class="sf-card">
+        <div class="sf-left">
+          <div class="sf-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <div>
+            <div class="sf-name">CRM Data Cleanup & Optimization</div>
+            <span class="sf-price">High Impact</span>
+          </div>
+        </div>
+        <div>
+          <p class="sf-desc">Comprehensive CRM export cleanup for HubSpot, Salesforce, Zoho, Pipedrive, and others. Merge duplicates, normalize field values, standardize job titles, company names, and lead sources.</p>
+          <ul class="sf-features">
+            <li>Smart deduplication across name + email + company fields</li>
+            <li>Lead source, status, and stage normalization</li>
+            <li>Deal value formatting and currency standardization</li>
+            <li>Notes cleanup and flag tagging (Duplicate Lead, Follow Up, etc.)</li>
+          </ul>
+        </div>
+        <div class="sf-action">
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-primary">Order Now</a>
+        </div>
+      </div>
+
+      <div class="sf-card">
+        <div class="sf-left">
+          <div class="sf-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="sf-name">Email Validation & Verification</div>
+            <span class="sf-price">Pre-Campaign</span>
+          </div>
+        </div>
+        <div>
+          <p class="sf-desc">Full email list validation before outreach campaigns. Identify invalid, disposable, catch-all, and role-based addresses. Improve deliverability rates and protect sender reputation.</p>
+          <ul class="sf-features">
+            <li>Syntax and domain validation</li>
+            <li>Disposable email address detection</li>
+            <li>Role-based email flagging (info@, admin@, etc.)</li>
+            <li>Auto-correction of common typos (gmial → gmail)</li>
+          </ul>
+        </div>
+        <div class="sf-action">
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-primary">Order Now</a>
+        </div>
+      </div>
+
+      <div class="sf-card">
+        <div class="sf-left">
+          <div class="sf-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div class="sf-name">Lead Database Optimization</div>
+            <span class="sf-price">Sales Operations</span>
+          </div>
+        </div>
+        <div>
+          <p class="sf-desc">Prepare lead lists for outbound SDR and marketing campaigns. Score and segment by ICP fit, remove dead leads, enrich with standardized job titles, industries, and geography fields.</p>
+          <ul class="sf-features">
+            <li>ICP segmentation and scoring flags</li>
+            <li>Job title normalization and seniority classification</li>
+            <li>Industry and company size standardization</li>
+            <li>Country/region formatting for targeting tools</li>
+          </ul>
+        </div>
+        <div class="sf-action">
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-primary">Order Now</a>
+        </div>
+      </div>
+
+      <div class="sf-card">
+        <div class="sf-left">
+          <div class="sf-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div>
+            <div class="sf-name">Web Research & Data Collection</div>
+            <span class="sf-price">Custom Research</span>
+          </div>
+        </div>
+        <div>
+          <p class="sf-desc">Manual or structured collection of business data from websites, directories, LinkedIn, Google Maps, and industry databases. Delivered as clean, formatted spreadsheets ready for CRM import.</p>
+          <ul class="sf-features">
+            <li>Company and contact data extraction</li>
+            <li>Multi-source research with source tracking</li>
+            <li>Structured output with consistent formatting</li>
+            <li>Scalable from 100 to 10,000+ records</li>
+          </ul>
+        </div>
+        <div class="sf-action">
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-primary">Order Now</a>
+        </div>
+      </div>
+
+      <div class="sf-card">
+        <div class="sf-left">
+          <div class="sf-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+          </div>
+          <div>
+            <div class="sf-name">Data Quality Auditing</div>
+            <span class="sf-price">Enterprise</span>
+          </div>
+        </div>
+        <div>
+          <p class="sf-desc">Comprehensive data quality assessment with full audit report. Column-level completeness scores, anomaly detection, field validation rules, and prioritized remediation recommendations.</p>
+          <ul class="sf-features">
+            <li>96%+ accuracy target with completeness scoring</li>
+            <li>Field-level health classification (healthy / at-risk / empty)</li>
+            <li>Anomaly and outlier flagging with context</li>
+            <li>Detailed PDF + Excel audit report delivered</li>
+          </ul>
+        </div>
+        <div class="sf-action">
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-primary">Order Now</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section pricing-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Pricing</span>
+      <h2 class="section-title">Transparent, Project-Based Pricing</h2>
+      <p class="section-sub">Pricing depends on dataset size and complexity. These are starting estimates.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-price">$10<span>/project</span></div>
+        <div class="pricing-desc">Up to 500 rows. Single dataset. Basic cleanup.</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Duplicate removal</li>
+          <li><span class="check">✓</span> Basic standardization</li>
+          <li><span class="check">✓</span> Missing value flags</li>
+          <li><span class="check">✓</span> Cleaning summary</li>
+          <li><span class="check">✓</span> 48-hour delivery</li>
+        </ul>
+        <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-outline" style="width:100%;justify-content:center">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-popular">Most Popular</div>
+        <div class="pricing-tier">Professional</div>
+        <div class="pricing-price">$35<span>/project</span></div>
+        <div class="pricing-desc">Up to 2,000 rows. Full cleanup + validation + audit report.</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in Starter</li>
+          <li><span class="check">✓</span> Email validation</li>
+          <li><span class="check">✓</span> CRM field normalization</li>
+          <li><span class="check">✓</span> Full audit report</li>
+          <li><span class="check">✓</span> Completeness scoring</li>
+          <li><span class="check">✓</span> 24-hour delivery</li>
+        </ul>
+        <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-white" style="width:100%;justify-content:center">Order on Fiverr</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-tier">Enterprise</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-desc">5,000+ rows. Multi-dataset. Ongoing retainer available.</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in Professional</li>
+          <li><span class="check">✓</span> Multi-file processing</li>
+          <li><span class="check">✓</span> Custom validation rules</li>
+          <li><span class="check">✓</span> Priority delivery</li>
+          <li><span class="check">✓</span> Ongoing support</li>
+        </ul>
+        <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center">Contact for Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">FAQ</span>
+      <h2 class="section-title">Common Questions</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">What file formats do you accept? <span class="faq-icon">+</span></div>
+        <div class="faq-a">I accept .xlsx, .csv, .xls, and Google Sheets exports. I can also work with .ods and tab-delimited files. For CRM data, I work with HubSpot, Salesforce, Zoho, and Pipedrive exports.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do I know what changes were made? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Every project includes a full cleaning audit report that documents rows in/out, cells changed, duplicates removed, emails validated, and field-level changes. You get full transparency on every modification.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is my data kept confidential? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Absolutely. All client data is treated with strict confidentiality. I can sign an NDA before starting if your project requires it. Files are not shared, stored, or used for any purpose outside of the project.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What CRM systems are supported? <span class="faq-icon">+</span></div>
+        <div class="faq-a">I work with exports from any CRM — including HubSpot, Salesforce, Zoho CRM, Pipedrive, Monday.com, Airtable, and others. Deliverables are formatted for re-import into your specific CRM if needed.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you offer revisions? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Yes. All projects include at least one free revision. If anything doesn't meet the agreed scope, I'll fix it promptly. Client satisfaction is the core of every delivery.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-bg"></div>
+      <div class="cta-content">
+        <h2>Need a Custom Quote?</h2>
+        <p>Send your dataset details and I'll respond within 24 hours with a scope and pricing estimate.</p>
+        <div class="cta-actions">
+          <a href="contact.html" class="btn btn-white btn-lg">Contact Me</a>
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-outline-white btn-lg">Order on Fiverr</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span class="logo-mark" style="background:var(--blue)">SK</span><div class="logo-text"><span class="logo-name" style="color:var(--white)">Sandeep Kumawat</span><span class="logo-role">Data & CRM Specialist</span></div></div>
+        <p>Professional data cleaning and CRM optimization. Trusted by agencies, startups, and outreach teams worldwide.</p>
+        <div class="footer-social">
+          <a href="mailto:overlimits.data@gmail.com" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+          <a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" aria-label="Fiverr"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.25 16.25v-7.5H9.375A3.125 3.125 0 0 0 6.25 11.875V16.25H4.375V9.375A5 5 0 0 1 9.375 4.375H16.25V2.5l3.75 3.75-3.75 3.75V6.25H9.375A3.125 3.125 0 0 0 6.25 9.375v.937a5 5 0 0 1 3.125-1.062H18.125V16.25h1.25V18.125h-5v1.25h-1.875v-1.25H8.125V18.125H6.25V16.25H4.375v-1.875h13.75v1.875H16.25z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-links"><h4>Services</h4><ul><li><a href="services.html">Excel Data Cleaning</a></li><li><a href="services.html">CRM Data Cleanup</a></li><li><a href="services.html">Email Validation</a></li><li><a href="services.html">Lead Optimization</a></li><li><a href="services.html">Data Auditing</a></li></ul></div>
+      <div class="footer-links"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="contact.html">Contact</a></li><li><a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank">Fiverr Profile</a></li></ul></div>
+      <div class="footer-contact"><h4>Contact</h4><a href="mailto:overlimits.data@gmail.com" class="footer-email">overlimits.data@gmail.com</a><a href="https://www.fiverr.com/john_snow_10?public_mode=true" target="_blank" class="btn btn-primary" style="margin-top:1rem;display:inline-block">Hire on Fiverr</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Sandeep Kumawat. All rights reserved.</span><span>Data Cleaning & CRM Optimization Specialist</span></div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const answer = q.nextElementSibling;
+      const isOpen = q.classList.contains('open');
+      document.querySelectorAll('.faq-q.open').forEach(oq => {
+        oq.classList.remove('open');
+        oq.nextElementSibling.classList.remove('open');
+      });
+      if (!isOpen) {
+        q.classList.add('open');
+        answer.classList.add('open');
+      }
+    });
+  });
+</script>
+</body>
+</html>
